@@ -2,9 +2,17 @@ from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score
+from sklearn.tree import DecisionTreeClassifier
+
 
 # define a Gaussain NB classifier
 clf = GaussianNB()
+
+#clf=LinearRegression
+
+clf_DT = DecisionTreeClassifier(criterion='gini', splitter='best', max_depth=None, min_samples_split=2)
+# Create Decision Tree on the training data
+accuracy_clf= None 
 
 # define the class encodings and reverse encodings
 classes = {0: "Iris Setosa", 1: "Iris Versicolour", 2: "Iris Virginica"}
@@ -12,6 +20,7 @@ r_classes = {y: x for x, y in classes.items()}
 
 # function to train and load the model during startup
 def load_model():
+    global accuracy_clf
     # load the dataset from the official sklearn datasets
     X, y = datasets.load_iris(return_X_y=True)
 
@@ -21,7 +30,17 @@ def load_model():
 
     # calculate the print the accuracy score
     acc = accuracy_score(y_test, clf.predict(X_test))
-    print(f"Model trained with accuracy: {round(acc, 3)}")
+    print(f"GaussianNb Model trained with accuracy: {round(acc, 3)}")
+
+    clf_DT.fit(X_train, y_train)
+
+    # calculate the print the accuracy score
+    acc_DT = accuracy_score(y_test, clf_DT.predict(X_test))
+    print(f"Decision tree Model trained with accuracy: {round(acc_DT, 3)}")
+
+    accurate_clf = clf if (acc>acc_DT) else clf_DT
+
+    print(f"Selected classification Model:",type(accurate_clf))
 
 
 # function to predict the flower using the model
