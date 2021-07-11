@@ -8,6 +8,7 @@ This repository contains code which demonstrates ML-Ops using a `FastAPI` applic
 - Install dependencies using `pip3 install -r requirements.txt`
 - Run application using `python3 main.py`
 - Run tests using `pytest`
+-testing
 
 ## CI/CD
 - `build` (test) for all the pull requests
