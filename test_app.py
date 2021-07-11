@@ -24,6 +24,7 @@ def test_pred_virginica():
         # asserting the correct response is received
         assert response.status_code == 200
         assert response.json() ["flower_class"]== "Iris Virginica"
+        assert "datetime" in response.json()
 
 
 # Task 2: Added 2 Test Cases
@@ -42,7 +43,8 @@ def test_pred_versicolour():
         response = client.post("/predict_flower", json=payload)
         # asserting the correct response is received
         assert response.status_code == 200
-        assert response.json()["flower_class"] == "Iris Versicolour" # Changing the syntax due to added timestamp
+        assert response.json()["flower_class"] == "Iris Versicolour" 
+        assert "datetime" in response.json()
 
 def test_pred_setosa():
     # Test case 2 for iris setosa
@@ -58,4 +60,5 @@ def test_pred_setosa():
         response = client.post("/predict_flower", json=payload)
         # asserting the correct response is received
         assert response.status_code == 200
-        assert response.json()["flower_class"] == "Iris Setosa" # Changing the syntax due to added timestamp        
+        assert response.json()["flower_class"] == "Iris Setosa"
+        assert "datetime" in response.json()      
